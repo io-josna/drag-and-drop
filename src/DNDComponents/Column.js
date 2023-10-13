@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useDrag } from "react-dnd";
 import { COLUMN } from "../Utils/Constants";
 import Component from "./Component";
@@ -6,8 +6,7 @@ import DropZone from "./DropZone";
 
 const style = {};
 const Column = ({ data, components, handleDrop, path }) => {
-  const ref = useRef(null);
-
+  console.log("Data in Columnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", data);
   const [{ isDragging }, drag] = useDrag({
     type: COLUMN,
     item: {
@@ -21,9 +20,9 @@ const Column = ({ data, components, handleDrop, path }) => {
   });
 
   const opacity = isDragging ? 0 : 1;
-  drag(ref);
 
   const renderComponent = (component, currentPath) => {
+    console.log("Component from Column{{{{{{{{{{{{{{{{{{{{{{{{", component);
     return (
       <Component
         key={component.id}
@@ -36,11 +35,10 @@ const Column = ({ data, components, handleDrop, path }) => {
 
   return (
     <div
-      ref={ref}
+      ref={drag}
       style={{ ...style, opacity }}
       className="base draggable column"
     >
-      {/* {data.id} */}
       {data.children?.map((component, index) => {
         const currentPath = `${path}-${index}`;
 

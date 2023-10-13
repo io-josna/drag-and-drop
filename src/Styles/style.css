@@ -37,6 +37,7 @@ body {
 .dropZone {
   flex: 0 0 auto;
   height: 40px;
+  /* border: 1px dashed #ccc; */
   transition: 200ms all;
 }
 
@@ -70,7 +71,6 @@ body {
   flex: 1 1 100%;
   padding: 10px;
 }
-
 .columns {
   display: flex;
   padding: 20px 0;
@@ -81,7 +81,7 @@ body {
 }
 
 .base {
-  padding: 0.5rem 1rem;
+  /* padding: 0.5rem 1rem; */
   background-color: white;
   cursor: move;
 }
@@ -90,14 +90,15 @@ body {
   /* border: 1px solid red; */
   padding: 0;
 }
-
+.dragging-row {
+  border: 2px dashed #000;
+}
 .pageContainer {
   display: flex;
   flex: 1;
   flex-direction: column;
   margin-bottom: 100px;
 }
-
 .dropZone:hover {
   background: rgba(0, 162, 255, 0.3);
 }
@@ -113,10 +114,19 @@ body {
 
 .dropZone.horizontalDrag.active {
   width: 60px;
-  height: 60px;
+  height: 100px;
   border: 2px dashed rgba(0, 0, 0, 0.6);
 }
 
 .dropZone.horizontalDrag.isLast.active {
   border-bottom: 2px dashed rgba(0, 0, 0, 0.6);
+}
+.dragging-row {
+  border: 2px dashed rgba(0, 0, 0, 0.6);
+  /* Add other styles as needed for the dragged row */
+}
+
+.dragging-column {
+  border: 2px dashed rgba(0, 0, 0, 0.6);
+  /* Add other styles as needed for the dragged column */
 }

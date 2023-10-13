@@ -1,13 +1,18 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useDrag } from "react-dnd";
 import { ROW } from "../Utils/Constants";
 import Column from "./Column";
 import DropZone from "./DropZone";
 
 const style = {};
-const Row = ({ data, components, handleDrop, path }) => {
-  const ref = useRef(null);
-
+const Row = ({
+  data,
+  components,
+  handleDrop,
+  path,
+  isDraggingRow,
+  setIsDraggingRow,
+}) => {
   const [{ isDragging }, drag] = useDrag({
     type: ROW,
     item: {
@@ -21,9 +26,15 @@ const Row = ({ data, components, handleDrop, path }) => {
   });
 
   const opacity = isDragging ? 0 : 1;
-  drag(ref);
+  const handleDragStart = () => {
+    setIsDraggingRow(true);
+  };
 
+  const handleDragEnd = () => {
+    setIsDraggingRow(false);
+  };
   const renderColumn = (column, currentPath) => {
+    console.log("Column*************", column);
     return (
       <Column
         key={column.id}
@@ -36,10 +47,15 @@ const Row = ({ data, components, handleDrop, path }) => {
   };
 
   return (
-    <div ref={ref} style={{ ...style, opacity }} className="base draggable row">
-      {/* {data.id} */}
+    <div
+      ref={drag}
+      style={{ ...style, opacity }}
+      className={`base draggable row ${isDragging ? "dragging-row" : ""}`}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
       <div className="columns">
-        {data.children.map((column, index) => {
+        {data.children?.map((column, index) => {
           const currentPath = `${path}-${index}`;
 
           return (

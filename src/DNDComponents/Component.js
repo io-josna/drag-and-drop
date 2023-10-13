@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useDrag } from "react-dnd";
 import { COMPONENT } from "../Utils/Constants";
 
@@ -9,8 +9,10 @@ const style = {
   cursor: "move",
 };
 const Component = ({ data, components, path }) => {
-  const ref = useRef(null);
-
+  console.log(
+    "Data is ??????????????????????????????????????????????",
+    components
+  );
   const [{ isDragging }, drag] = useDrag({
     type: COMPONENT,
     item: { id: data.id, path },
@@ -18,19 +20,14 @@ const Component = ({ data, components, path }) => {
       isDragging: monitor.isDragging(),
     }),
   });
-
   const opacity = isDragging ? 0 : 1;
-  drag(ref);
-  console.log("components are", components);
   const component = components[data.id];
-  console.log("component is ,", component);
   return (
     <div
-      ref={ref}
+      ref={drag}
       style={{ ...style, opacity }}
       className="component draggable"
     >
-      {/* <div>{data.id}</div> */}
       {component && component.content ? (
         <div>{component.content}</div>
       ) : (

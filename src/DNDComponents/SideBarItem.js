@@ -1,5 +1,6 @@
 import React from "react";
 import { useDrag } from "react-dnd";
+
 const SideBarItem = ({ data }) => {
   const [{ isDragging }, drag] = useDrag({
     type: data.type,
@@ -19,5 +20,4 @@ const SideBarItem = ({ data }) => {
     </div>
   );
 };
-
 export default SideBarItem;

@@ -46,4 +46,20 @@ export const SIDEBAR_ITEMS = [
       content: "Some image",
     },
   },
+  {
+    id: shortid.generate(),
+    type: SIDEBAR_ITEM,
+    component: {
+      type: "Two-Column-Block",
+      content: "MultiColumn",
+    },
+  },
+  {
+    id: shortid.generate(),
+    type: SIDEBAR_ITEM,
+    component: {
+      type: "Three-Column-Block",
+      content: "ThreeColumn",
+    },
+  },
 ];
