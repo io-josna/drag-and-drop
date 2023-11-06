@@ -3,7 +3,6 @@ import { useDrop } from "react-dnd";
 
 const DroppableComponent1 = ({ data }) => {
   const [droppedItems, setDroppedItems] = useState([]);
-
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: "DRAGGABLE_ITEM_TYPE",
     drop: (item) => {

@@ -2,7 +2,7 @@ import { COLUMN, COMPONENT, ROW } from "../Utils/Constants";
 import shortid from "shortid";
 
 export const reorder = (list, startIndex, endIndex) => {
-  const result = Array?.from(list);
+  const result = [...list];
   const [removed] = result?.splice(startIndex, 1);
   result?.splice(endIndex, 0, removed); // inserting task in new index
   console.log("List is ", list);
@@ -53,49 +53,37 @@ export const reorderChildren = (children, splitDropZonePath, splitItemPath) => {
 };
 
 export const removeChildFromChildren = (children, splitItemPath) => {
-  if (!Array.isArray(children)) {
-    return [];
+  if (!splitItemPath || splitItemPath.length === 0) {
+    // Handle the case when splitItemPath is undefined or empty
+    return children;
   }
 
-  if (splitItemPath?.length === 1) {
-    console.log("children are :", children);
-    // handle index out of bounds
-    if (splitItemPath[0] >= children.length) {
-      return children;
-    }
-
+  if (splitItemPath.length === 1) {
     const itemIndex = Number(splitItemPath[0]);
     return remove(children, itemIndex);
   }
 
   const updatedChildren = [...children];
 
-  // Handle invalid index
-  const curIndex = Number(splitItemPath?.slice(0, 1));
-  if (isNaN(curIndex) || curIndex >= updatedChildren.length) {
-    return updatedChildren;
-  }
+  const curIndex = Number(splitItemPath[0]);
 
-  // Get child node
+  // Update the specific node's children
+  const splitItemChildrenPath = splitItemPath.slice(1);
   const nodeChildren = updatedChildren[curIndex];
 
-  // Handle invalid path
-  const splitItemChildrenPath = splitItemPath?.slice(1);
-  if (!splitItemChildrenPath?.length) {
-    return updatedChildren;
+  if (nodeChildren && nodeChildren.children) {
+    updatedChildren[curIndex] = {
+      ...nodeChildren,
+      children: removeChildFromChildren(
+        nodeChildren.children,
+        splitItemChildrenPath
+      ),
+    };
   }
-
-  // Update child node
-  updatedChildren[curIndex] = {
-    ...nodeChildren,
-    children: removeChildFromChildren(
-      nodeChildren.children,
-      splitItemChildrenPath
-    ),
-  };
 
   return updatedChildren;
 };
+
 export const addChildToChildren = (children, splitDropZonePath, item) => {
   if (splitDropZonePath.length === 1) {
     const dropZoneIndex = Number(splitDropZonePath[0]);

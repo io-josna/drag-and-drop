@@ -4,7 +4,7 @@ import { useDrag } from "react-dnd";
 const SideBarItem = ({ data }) => {
   const [{ isDragging }, drag] = useDrag({
     type: data.type,
-    item: { data, id: data.id },
+    item: data,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),

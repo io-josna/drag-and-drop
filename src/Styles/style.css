@@ -67,10 +67,11 @@ body {
 }
 
 .column {
-  /* border: 1px solid blue; */
+  border: 1px solid blue;
   flex: 1 1 100%;
   padding: 10px;
 }
+
 .columns {
   display: flex;
   padding: 20px 0;
@@ -87,8 +88,17 @@ body {
 }
 
 .row {
-  /* border: 1px solid red; */
+  border: 1px solid red;
   padding: 0;
+}
+.row:hover {
+  border: 1px dashed red;
+}
+.row:hover .column {
+  border: 1px dashed blue;
+}
+.dropZone.active .row .column {
+  border: 1px dashed blue;
 }
 .dragging-row {
   border: 2px dashed #000;

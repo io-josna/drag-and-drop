@@ -4,7 +4,7 @@ export const ROW = "row";
 export const COLUMN = "column";
 export const SIDEBAR_ITEM = "sidebarItem";
 export const COMPONENT = "component";
-
+export const TWOCOLUMNBLOCK = "TwoColumnBlock";
 export const SIDEBAR_ITEMS = [
   {
     id: shortid.generate(),

@@ -5,14 +5,7 @@ import Column from "./Column";
 import DropZone from "./DropZone";
 
 const style = {};
-const Row = ({
-  data,
-  components,
-  handleDrop,
-  path,
-  isDraggingRow,
-  setIsDraggingRow,
-}) => {
+const Row = ({ data, components, handleDrop, path }) => {
   const [{ isDragging }, drag] = useDrag({
     type: ROW,
     item: {
@@ -26,15 +19,8 @@ const Row = ({
   });
 
   const opacity = isDragging ? 0 : 1;
-  const handleDragStart = () => {
-    setIsDraggingRow(true);
-  };
 
-  const handleDragEnd = () => {
-    setIsDraggingRow(false);
-  };
   const renderColumn = (column, currentPath) => {
-    console.log("Column*************", column);
     return (
       <Column
         key={column.id}
@@ -51,8 +37,6 @@ const Row = ({
       ref={drag}
       style={{ ...style, opacity }}
       className={`base draggable row ${isDragging ? "dragging-row" : ""}`}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
     >
       <div className="columns">
         {data.children?.map((column, index) => {
@@ -60,19 +44,19 @@ const Row = ({
 
           return (
             <React.Fragment key={column.id}>
-              <DropZone
+              {/* <DropZone
                 data={{
                   path: currentPath,
                   childrenCount: data.children.length,
                 }}
                 onDrop={handleDrop}
                 className="horizontalDrag"
-              />
+              /> */}
               {renderColumn(column, currentPath)}
             </React.Fragment>
           );
         })}
-        <DropZone
+        {/* <DropZone
           data={{
             path: `${path}-${data.children.length}`,
             childrenCount: data.children.length,
@@ -80,7 +64,7 @@ const Row = ({
           onDrop={handleDrop}
           className="horizontalDrag"
           isLast
-        />
+        /> */}
       </div>
     </div>
   );
